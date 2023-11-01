@@ -28,6 +28,7 @@ from gi.repository import Gio, Adw
 from .define import RES_PATH
 from .window import application_window
 from .actions import setup_application_actions
+from .utils import Utils
 
 
 application = Adw.Application(
@@ -38,6 +39,7 @@ application = Adw.Application(
 
 def application_startup(user_data: Adw.Application):
     user_data.set_resource_base_path(RES_PATH)
+    application.utils = Utils(user_data)
 
 
 def application_activate(user_data: Adw.Application):

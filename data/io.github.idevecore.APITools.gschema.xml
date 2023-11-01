@@ -9,5 +9,17 @@
       </choices>
       <default>"auto"</default>
     </key>
+    <key name="width" type="i">
+      <default>420</default>
+    </key>
+    <key name="height" type="i">
+      <default>600</default>
+    </key>
+    <key name="is-maximized" type="b">
+      <default>false</default>
+    </key>
+    <key name="is-fullscreen" type="b">
+      <default>false</default>
+    </key>
   </schema>
 </schemalist>

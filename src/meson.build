@@ -39,11 +39,12 @@ gnome.compile_resources('api-tools',
 )
 
 sources = [
-  'components/theme_switcher/main.py',
-  '__init__.py',
   'actions.py',
   'application.py',
+  'components/theme_switcher/main.py',
+  '__init__.py',
   'main.py',
+  'utils.py',
   'window.py',
 ]
 

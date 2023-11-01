@@ -22,9 +22,10 @@ import gi
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Gtk, Adw
+from gi.repository import Adw, Gio, Gtk
 from .define import RES_PATH
 from .components import ThemeSwitcher
+from .utils import Settings
 
 
 resource = f"{RES_PATH}/window.ui"
@@ -33,7 +34,35 @@ resource = f"{RES_PATH}/window.ui"
 def application_window(application: Adw.Application):
     builder = Gtk.Builder.new_from_resource(resource)
     builder.get_object("menu_button").props.popover.add_child(ThemeSwitcher(), "theme")
+    settings: Settings = application.utils.settings
     window = builder.get_object("window")
 
+    def load_window_state():
+        settings.bind(
+            key="width",
+            object=window,
+            property="default-width",
+            flags=Gio.SettingsBindFlags.DEFAULT,
+        )
+        settings.bind(
+            key="height",
+            object=window,
+            property="default-height",
+            flags=Gio.SettingsBindFlags.DEFAULT,
+        )
+        settings.bind(
+            key="is-maximized",
+            object=window,
+            property="maximized",
+            flags=Gio.SettingsBindFlags.DEFAULT,
+        )
+        settings.bind(
+            key="is-fullscreen",
+            object=window,
+            property="fullscreened",
+            flags=Gio.SettingsBindFlags.DEFAULT,
+        )
+
+    load_window_state()
     window.set_application(application)
     return window
