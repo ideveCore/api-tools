@@ -25,6 +25,7 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
 from gi.repository import Gio, Adw
+from .define import RES_PATH
 from .window import application_window
 from .actions import setup_application_actions
 
@@ -35,9 +36,14 @@ application = Adw.Application(
 )
 
 
+def application_startup(user_data: Adw.Application):
+    user_data.set_resource_base_path(RES_PATH)
+
+
 def application_activate(user_data: Adw.Application):
     application_window(application=user_data).present()
     setup_application_actions(application=user_data)
 
 
+application.connect("startup", application_startup)
 application.connect("activate", application_activate)

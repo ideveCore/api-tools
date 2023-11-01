@@ -8,7 +8,7 @@ Adw.ApplicationWindow window {
     [top]
     Adw.HeaderBar {
       [end]
-      Gtk.MenuButton {
+      Gtk.MenuButton menu_button {
         primary: true;
         icon-name: "open-menu-symbolic";
         tooltip-text: _("Menu");
@@ -23,6 +23,11 @@ Adw.ApplicationWindow window {
 }
 
 menu primary_menu {
+  section {
+    item {
+      custom: "theme";
+    }
+  }
   section {
     item {
       label: _("_Preferences");

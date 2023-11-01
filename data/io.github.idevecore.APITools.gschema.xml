@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="api-tools">
-	<schema id="io.github.idevecore.APITools" path="/io/github/idevecore/APITools/">
-	</schema>
+  <schema id="io.github.idevecore.APITools" path="/io/github/idevecore/APITools/">
+    <key type="s" name="color-scheme">
+      <choices>
+        <choice value="auto" />
+        <choice value="light" />
+        <choice value="dark" />
+      </choices>
+      <default>"auto"</default>
+    </key>
+  </schema>
 </schemalist>

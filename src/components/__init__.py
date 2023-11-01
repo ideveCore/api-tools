@@ -1,4 +1,4 @@
-# window.py
+# __init__.py
 #
 # Copyright 2023 Ideve Core
 #
@@ -17,23 +17,4 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-import gi
-
-gi.require_version("Gtk", "4.0")
-gi.require_version("Adw", "1")
-
-from gi.repository import Gtk, Adw
-from .define import RES_PATH
-from .components import ThemeSwitcher
-
-
-resource = f"{RES_PATH}/window.ui"
-
-
-def application_window(application: Adw.Application):
-    builder = Gtk.Builder.new_from_resource(resource)
-    builder.get_object("menu_button").props.popover.add_child(ThemeSwitcher(), "theme")
-    window = builder.get_object("window")
-
-    window.set_application(application)
-    return window
+from .theme_switcher.main import ThemeSwitcher
