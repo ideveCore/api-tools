@@ -1,0 +1,6 @@
+data/io.github.idevecore.APITools.desktop.in
+data/io.github.idevecore.APITools.metainfo.xml.in
+data/io.github.idevecore.APITools.gschema.xml
+src/main.py
+src/window.py
+src/window.ui
