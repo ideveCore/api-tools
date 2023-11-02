@@ -1,0 +1,38 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+name: CI
+jobs:
+  flatpak:
+    name: Flatpak
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:gnome-45
+      options: --privileged
+    strategy:
+      matrix:
+        arch: [x86_64, aarch64]
+      # Don't fail the whole workflow if one architecture fails
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install deps
+      run: |
+        dnf -y install docker
+    - name: Set up QEMU
+      id: qemu
+      uses: docker/setup-qemu-action@v2
+      with:
+        platforms: arm64
+    - name: Build Flatpak
+      uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+      with:
+        bundle: api-tools.flatpak
+        run-tests: true
+        manifest-path: io.github.idevecore.APITools.json
+        cache-key: flatpak-builder-${{ github.sha }}
+        arch: ${{ matrix.arch }}
