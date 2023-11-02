@@ -30,7 +30,6 @@ from .window import application_window
 from .actions import setup_application_actions
 from .utils import Utils
 
-
 application = Adw.Application(
     application_id="io.github.idevecore.APITools",
     flags=Gio.ApplicationFlags.DEFAULT_FLAGS,

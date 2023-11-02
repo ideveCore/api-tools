@@ -24,6 +24,7 @@ run_target('run',
 blueprints = custom_target('blueprints',
   input: files(
     'components/theme_switcher/index.blp',
+    'components/shortcuts/index.blp',
     'window.blp',
   ),
   output: '.',

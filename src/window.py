@@ -29,6 +29,7 @@ from .utils import Settings
 
 
 resource = f"{RES_PATH}/window.ui"
+shortcuts_resource = f"{RES_PATH}/components/shortcuts/index.ui"
 
 
 def application_window(application: Adw.Application):
@@ -64,5 +65,8 @@ def application_window(application: Adw.Application):
         )
 
     load_window_state()
+    window.set_help_overlay(
+        Gtk.Builder.new_from_resource(shortcuts_resource).get_object("shortcut")
+    )
     window.set_application(application)
     return window

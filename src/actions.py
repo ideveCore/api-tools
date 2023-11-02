@@ -65,3 +65,4 @@ def setup_application_actions(application: Adw.Application):
     create_action("quit", lambda *_: application.quit(), ["<primary>q"])
     create_action("about", about_action)
     create_action("preferences", preferences_action)
+    application.set_accels_for_action("win.show-help-overlay", ["<Primary>question"])

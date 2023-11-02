@@ -4,7 +4,7 @@
     <file preprocess="xml-stripblanks">window.ui</file>
     <file alias="theme-switcher.css">assets/styles/theme-switcher.css</file>
     <file alias="style.css">assets/styles/styles.css</file>
-    <file preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
+    <file preprocess="xml-stripblanks">components/shortcuts/index.ui</file>
     <file preprocess="xml-stripblanks">components/theme_switcher/index.ui</file>
   </gresource>
 </gresources>
