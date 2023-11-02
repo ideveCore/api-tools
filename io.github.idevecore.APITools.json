@@ -105,8 +105,8 @@
       "buildsystem": "meson",
       "sources": [
         {
-          "type": "git",
-          "url": "file:///home/francisco/Projetos"
+          "type": "dir",
+          "path": "."
         }
       ]
     }
