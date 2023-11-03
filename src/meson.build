@@ -23,8 +23,9 @@ run_target('run',
 
 blueprints = custom_target('blueprints',
   input: files(
-    'components/theme_switcher/index.blp',
     'components/shortcuts/index.blp',
+    'components/theme_switcher/index.blp',
+    'pages/home/index.blp',
     'window.blp',
   ),
   output: '.',
@@ -40,10 +41,11 @@ gnome.compile_resources('api-tools',
 )
 
 sources = [
+  '__init__.py',
   'actions.py',
   'application.py',
   'components/theme_switcher/main.py',
-  '__init__.py',
+  'pages/home/main.py',
   'main.py',
   'utils.py',
   'window.py',
@@ -53,6 +55,9 @@ install_data(sources, install_dir: moduledir)
 
 # ===== Install components sources =====
 install_subdir('components', install_dir: moduledir)
+
+# ===== Install pages sources =====
+install_subdir('pages', install_dir: moduledir)
 
 # ===== Install assets sources =====
 install_subdir('assets', install_dir: moduledir)

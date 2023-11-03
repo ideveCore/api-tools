@@ -17,7 +17,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from typing import Dict, Callable
+from typing import Dict, Callable, Union, Any
 import gi
 
 gi.require_version("Adw", "1")
@@ -38,6 +38,25 @@ class Settings(Gio.Settings):
         super().bind(key, object, property, flags)
 
 
+class Navigation:
+    def __init__(self) -> None:
+        self.__current_navigation = ""
+        self.__events = {"changed": []}
+
+    def navigate(self, navigation: str, data: Dict[str, Any] = {}) -> None:
+        if not navigation is None:
+            self.__current_navigation = navigation
+            self.__emit_changed(data)
+
+    def __emit_changed(self, data: Dict[str, Any]):
+        for event in self.__events["changed"]:
+            event(self.__current_navigation, data)
+
+    def connect(self, event: str, callback: Callable):
+        self.__events[event].append(callback)
+
+
 class Utils:
     def __init__(self, application: Adw.Application) -> None:
         self.settings = Settings(application.get_application_id())
+        self.navigation = Navigation()

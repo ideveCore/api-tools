@@ -6,5 +6,6 @@
     <file alias="style.css">assets/styles/styles.css</file>
     <file preprocess="xml-stripblanks">components/shortcuts/index.ui</file>
     <file preprocess="xml-stripblanks">components/theme_switcher/index.ui</file>
+    <file preprocess="xml-stripblanks">pages/home/index.ui</file>
   </gresource>
 </gresources>

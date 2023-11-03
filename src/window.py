@@ -17,6 +17,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+from typing import Any, Dict
 import gi
 
 gi.require_version("Gtk", "4.0")
@@ -25,7 +26,9 @@ gi.require_version("Adw", "1")
 from gi.repository import Adw, Gio, Gtk
 from .define import RES_PATH
 from .components import ThemeSwitcher
-from .utils import Settings
+
+from .pages import home
+from .utils import Settings, Navigation
 
 
 resource = f"{RES_PATH}/window.ui"
@@ -36,7 +39,10 @@ def application_window(application: Adw.Application):
     builder = Gtk.Builder.new_from_resource(resource)
     builder.get_object("menu_button").props.popover.add_child(ThemeSwitcher(), "theme")
     settings: Settings = application.utils.settings
+    navigation: Navigation = application.utils.navigation
     window = builder.get_object("window")
+    toolbar_view = builder.get_object("toolbar_view")
+    pages = {"home": home}
 
     def load_window_state():
         settings.bind(
@@ -64,9 +70,14 @@ def application_window(application: Adw.Application):
             flags=Gio.SettingsBindFlags.DEFAULT,
         )
 
+    def navigation_changed(navigation: str, data: Dict[str, Any]):
+        toolbar_view.set_content(pages[navigation](application, data))
+
     load_window_state()
     window.set_help_overlay(
         Gtk.Builder.new_from_resource(shortcuts_resource).get_object("shortcut")
     )
+    navigation.connect("changed", navigation_changed)
+    navigation.navigate("home")
     window.set_application(application)
     return window
