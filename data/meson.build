@@ -1,10 +1,17 @@
+# ===== Install desktop file =====
+desktop_conf = configuration_data()
+desktop_conf.set('icon', application_id)
 desktop_file = i18n.merge_file(
-        input: 'io.github.idevecore.APITools.desktop.in',
-       output: 'io.github.idevecore.APITools.desktop',
-         type: 'desktop',
-       po_dir: '../po',
-      install: true,
-  install_dir: get_option('datadir') / 'applications'
+  input: configure_file(
+    input: '@0@.desktop.in.in'.format(base_id),
+    output: '@BASENAME@',
+    configuration: desktop_conf
+  ),
+  output: '@0@.desktop'.format(application_id),
+  type: 'desktop',
+  po_dir: '../po',
+  install: true,
+  install_dir: join_paths(get_option('datadir'), 'applications')
 )
 
 desktop_utils = find_program('desktop-file-validate', required: false)
@@ -12,25 +19,44 @@ if desktop_utils.found()
   test('Validate desktop file', desktop_utils, args: [desktop_file])
 endif
 
+# ===== Install appdata ===== 
+appdata_conf = configuration_data()
+appdata_conf.set('app-id', application_id)
 appstream_file = i18n.merge_file(
-        input: 'io.github.idevecore.APITools.metainfo.xml.in',
-       output: 'io.github.idevecore.APITools.metainfo.xml',
-       po_dir: '../po',
-      install: true,
-  install_dir: get_option('datadir') / 'metainfo'
+  input: configure_file(
+    input: '@0@.appdata.xml.in.in'.format(base_id),
+    output: '@BASENAME@',
+    configuration: appdata_conf
+  ),
+  output: '@0@.appdata.xml'.format(application_id),
+  po_dir: '../po',
+  install: true,
+  install_dir: join_paths(get_option('datadir'), 'appdata')
 )
 
-appstreamcli = find_program('appstreamcli', required: false, disabler: true)
-test('Validate appstream file', appstreamcli,
-     args: ['validate', '--no-net', '--explain', appstream_file])
+appstream_util = find_program('appstream-util', required: false)
+if appstream_util.found()
+  test('Validate appstream file', appstream_util,
+    args: ['validate-relax', appstream_file.full_path()]
+  )
+endif
 
-install_data('io.github.idevecore.APITools.gschema.xml',
-  install_dir: get_option('datadir') / 'glib-2.0' / 'schemas'
+# ===== Install gsettings schema =====
+gschema_conf = configuration_data()
+gschema_conf.set('app-id', application_id)
+configure_file(
+  input: '@0@.gschema.xml.in'.format(base_id),
+  output: '@0@.gschema.xml'.format(application_id),
+  configuration: gschema_conf,
+  install: true,
+  install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
 )
 
-compile_schemas = find_program('glib-compile-schemas', required: false, disabler: true)
-test('Validate schema file',
-     compile_schemas,
-     args: ['--strict', '--dry-run', meson.current_source_dir()])
+compile_schemas = find_program('glib-compile-schemas', required: false)
+if compile_schemas.found()
+  test('Validate schema file',
+       compile_schemas,
+       args: ['--strict', '--dry-run', meson.current_source_dir()])
+endif
 
 subdir('icons')

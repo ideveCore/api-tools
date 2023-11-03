@@ -33,6 +33,6 @@ jobs:
       with:
         bundle: api-tools.flatpak
         run-tests: true
-        manifest-path: io.github.idevecore.APITools.json
+        manifest-path: io.github.idevecore.APITools.Devel.json
         cache-key: flatpak-builder-${{ github.sha }}
         arch: ${{ matrix.arch }}

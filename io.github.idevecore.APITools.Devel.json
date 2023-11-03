@@ -1,5 +1,5 @@
 {
-  "app-id": "io.github.idevecore.APITools",
+  "app-id": "io.github.idevecore.APITools.Devel",
   "runtime": "org.gnome.Platform",
   "runtime-version": "45",
   "sdk": "org.gnome.Sdk",
@@ -103,6 +103,9 @@
       "name": "api-tools",
       "builddir": true,
       "buildsystem": "meson",
+      "config-opts": [
+        "-Dprofile=development"
+      ],
       "sources": [
         {
           "type": "dir",

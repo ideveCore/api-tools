@@ -25,25 +25,25 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
 from gi.repository import Gio, Adw
-from .define import RES_PATH
+from .define import RES_PATH, APP_ID
 from .window import application_window
 from .actions import setup_application_actions
 from .utils import Utils
 
 application = Adw.Application(
-    application_id="io.github.idevecore.APITools",
+    application_id=APP_ID,
     flags=Gio.ApplicationFlags.DEFAULT_FLAGS,
+    resource_base_path=RES_PATH,
 )
 
 
 def application_startup(user_data: Adw.Application):
-    user_data.set_resource_base_path(RES_PATH)
-    application.utils = Utils(user_data)
+    user_data.utils = Utils(user_data)
+    setup_application_actions(user_data)
 
 
 def application_activate(user_data: Adw.Application):
-    application_window(application=user_data).present()
-    setup_application_actions(application=user_data)
+    application_window(user_data).present()
 
 
 application.connect("startup", application_startup)
