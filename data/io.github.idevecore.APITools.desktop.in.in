@@ -1,13 +1,13 @@
 [Desktop Entry]
 Name=API Tools
-GenericName=API Tools
-TryExec=api-tools
-Exec=api-tools
+GenericName=API
+TryExec=apitools
+Exec=apitools
 Comment=API Tools is a simple application for test your APIs.
 Icon=@icon@
 Terminal=false
 Type=Application
-Categories=Utility;Developer;GTK;GNOME;
+Categories=Utility;GTK;GNOME;
 StartupNotify=true
 X-Purism-FormFactor=Workstation;Mobile;
 X-GNOME-SingleWindow=true

@@ -1,6 +1,6 @@
 #!@PYTHON@
 
-# api-tools.in
+# apitools.in
 #
 # Copyright 2023 Ideve Core
 #
@@ -39,8 +39,8 @@ if __name__ == '__main__':
     import gi
 
     from gi.repository import Gio
-    resource = Gio.Resource.load(os.path.join(pkgdatadir, 'api-tools.gresource'))
+    resource = Gio.Resource.load(os.path.join(pkgdatadir, 'apitools.gresource'))
     resource._register()
 
-    from api_tools import main
+    from apitools import main
     sys.exit(main.main(VERSION))

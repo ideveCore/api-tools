@@ -1,8 +1,8 @@
 python = import('python')
 
 configure_file(
-  input: 'api-tools.in',
-  output: 'api-tools',
+  input: 'apitools.in',
+  output: 'apitools',
   configuration: conf,
   install: true,
   install_dir: get_option('bindir'),
@@ -32,8 +32,8 @@ blueprints = custom_target('blueprints',
   command: [find_program('blueprint-compiler'), 'batch-compile', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
 )
 
-gnome.compile_resources('api-tools',
-  'api-tools.gresource.xml',
+gnome.compile_resources('apitools',
+  'apitools.gresource.xml',
   dependencies: blueprints,
   gresource_bundle: true,
   install: true,

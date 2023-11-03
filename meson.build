@@ -1,4 +1,4 @@
-project('api-tools',
+project('apitools',
           version: '0.1.0',
     meson_version: '>= 0.63.0',
   default_options: [ 'warning_level=2', 'werror=false', ],
@@ -10,7 +10,7 @@ gnome = import('gnome')
 
 base_id = 'io.github.idevecore.APITools'
 pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
-moduledir = join_paths(pkgdatadir, 'api_tools')
+moduledir = join_paths(pkgdatadir, 'apitools')
 
 if get_option('profile') == 'development'
   profile = 'Devel'
